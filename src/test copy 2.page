@@ -1,0 +1,301 @@
+<apex:page controller="EmployeeProfileController" 
+    showHeader="false"
+    cache="false"
+    docType="html-5.0"
+    standardStylesheets="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    sidebar="false">
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        :root {
+
+            --brand-header: rgba(255, 255, 255, 0);
+            --charcoal-grey:#3b434b;
+        }
+        /* 基础样式 */
+        body {
+            font-size: 14px;
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        /* 整个最外层（第一层） */
+        .Employee-Online-Profile-- {
+            /* width: 100%;
+            height: 100%;
+            position: relative; */
+        }
+        /* 针对宽度小于600px的设备 */
+        @media (max-width: 600px) {
+        body {
+            max-width: 390px;
+        }
+        }
+
+        /* 针对平板设备 */
+        @media (min-width: 601px) and (max-width: 1024px) {
+        body {
+            font-size: 15px;
+        }
+        }
+
+        /* 针对桌面设备 */
+        @media (min-width: 1025px) {
+        body {
+            max-width: 390px;
+            font-size: 16px;
+        }
+        .Employee-Online-Profile--{
+            max-width: 390px;
+        }
+        }
+
+
+        /* 背景第二层 */
+        .bg {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--brand-header) 13%, rgba(255, 255, 255, 0) 56%);
+            position: absolute;
+            
+        }
+
+        /* 背景第三层 */
+        .container {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(200deg, #2bcaff 0%, #ffffff00 100%);
+            /* position: absolute; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 上半部分线条背景 */
+        .up {
+            width: 100%;
+            height: 200px;
+            transform: rotate(8deg);
+            /* opacity: 0.47;
+            background-color: var(--brand-header); */
+            position: absolute;
+            overflow: hidden; 
+            z-index: 1; /* 确保线条背景在最上层 */
+        }
+
+        .up img {
+            width: 389.5px;
+            height: 242.7px;
+            padding: 4.5px 7.5px 222.2px 6.5px;
+            object-fit: contain;
+            /* opacity: 0.47; */
+        }
+
+        /* Charket AI 图片下层div */
+        .charketAiDiv {
+            width: 176px;
+            height: 32.2px;
+            background-color: var(--brand-header);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 10%; /* 调整Charket AI图片位置 */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2; /* 确保Charket AI图片在线条背景上 */
+        }
+
+        /* Charket AI 图片 */
+        .charketAi {
+            width: 176px;
+            height: 33px;
+            object-fit: contain;
+        }
+
+        /* 信息背景框 含圆形头像 */
+        .Fill-1 {
+            width: 360px;
+            height: 500px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 调整阴影 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 180px; /* 调整距离 */
+            padding-top: 50px;
+            position: relative;
+            z-index: 3; /* 确保信息框在最上层 */
+        }
+        .profile-card {
+            
+            width: 86px;
+            height: 3%;
+            margin: 41px 45px 3px;
+        }
+        .profile-card img {
+            border-radius: 50%;
+            border: 5px solid white;
+            width: 100px;
+            height: 100px;
+            top: -9%;
+            position: absolute;
+            left: calc(50% - 50px);
+        }
+
+        .Aaron-Lau {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--charcoal-grey);
+            margin-bottom: 10px;
+        }
+
+        .VP-of-Sales-Charke, .aaronlaucharketai {
+            font-size: 14px;
+            color: var(--charcoal-grey);
+            margin-bottom: 5px;
+        }
+
+        .aaronlaucharketai {
+            color: #00aee8;
+        }
+
+        /* 图标 */
+        .icons {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            margin: 20px 0;
+        }
+
+        .icons img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .icon-labels {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+        }
+
+        .icon-labels span {
+            font-size: 12px;
+            color: var(--charcoal-grey);
+        }
+
+        .salesforce {
+            width: 180px;
+            height: 56px;
+            object-fit: contain;
+            margin-top: 20px;
+        }
+
+        /* 最下方闪电网络 */
+        .bottom-section {
+            display: flex;
+            align-items: center;
+            margin: 20px 10px 0 10px; 
+            padding: 10px; /* 添加内边距 */
+            border-radius: 10px;
+            border: solid 1px #00aee8; /* 添加蓝色线框 */
+        }
+
+        .-\32 {
+            width: 54px;
+            height: 54px;
+            background-color: #00aee8;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .sddiv,.inter {
+            width: 54px;
+            height: 54px;
+            background-color: #00aee8;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 10px 10px 10px;
+        }
+
+        .sd, .-\37 {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+        }
+
+        .Charket-Copilot-you {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--charcoal-grey);
+            text-align: center;
+        }
+    </style>
+    <html>
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+            <title>Charket AI</title>
+            <link rel="stylesheet" href="{!URLFOR($Resource.EmployeeProfile, 'css/index.css')}" />
+        </head>
+        <body >
+            <div class="Employee-Online-Profile--">
+                <div class="bg">
+                    <div class="container">
+                        <div class="up">
+                            <img src="{!URLFOR($Resource.EmployeeProfile, '/images/backgroundline.png')}"/>
+                        </div>
+                        <div class="charketAiDiv">
+                            <img class="charketAi" src="{!URLFOR($Resource.EmployeeProfile, '/images/charketai.png')}" />
+                        </div>
+                        <div class="Fill-1">
+                            <div class="profile-card">
+                                <img src="{!currentUser.ProfilePhoto__c}" />
+                            </div>
+                            <span class="Aaron-Lau">Aaron Lau</span>
+                            <span class="VP-of-Sales-Charke">VP of Sales | Charket.ai</span>
+                            <span class="aaronlaucharketai">aaron.lau@charket.ai</span>
+                            <div class="icons">
+                                <img class="whatsapp" src="{!URLFOR($Resource.EmployeeProfile, '/images/whatsapp.png')}"/>
+                                <img class="wechat" src="{!URLFOR($Resource.EmployeeProfile, '/images/wechat.png')}"/>
+                                <img class="-\32" src="{!URLFOR($Resource.EmployeeProfile, '/images/linkin.png')}"/>
+                                <img class="-\33" src="{!URLFOR($Resource.EmployeeProfile, '/images/line.png')}"/>
+                            </div>
+                            <div class="icon-labels">
+                                <span class="WhatsApp">WhatsApp</span>
+                                <span class="WeChat">WeChat</span>
+                                <span class="LinkedIn">LinkedIn</span>
+                                <span class="LINE">LINE</span>
+                            </div>
+                            <img class="salesforce" src="{!URLFOR($Resource.EmployeeProfile, '/images/salesforceicon.png')}"/>
+                            
+                            <div class="bottom-section">
+                                <div class="sddiv">
+                                    <img class="sd" src="{!URLFOR($Resource.EmployeeProfile, '/images/lightningicon.png')}"/>
+                                </div>
+                                <span class="Charket-Copilot-you">Charket Copilot, your powerful assistant for getting things done</span>
+                                <div class="inter">
+                                    <img class="-\37" src="{!URLFOR($Resource.EmployeeProfile, '/images/globalicon.png')}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>
