@@ -1,5 +1,6 @@
 # WM-web
 WM-AI支持的功能有 ChatGPT、OpenAi Image、Midjourney、思维导图等等
+兄弟们，用发财的小手点点小星星star，谢谢
 
 # 推荐一站式AI中转API服务
 - 支持OpenAI、Midjourney、Stable Diffusion、Claude、Gemini等多种主流AI接口，助力企业和开发者轻松集成先进AI技术
